@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         editTextUser= (EditText) findViewById(R.id.editTextUser);
         editTextPassword= (EditText) findViewById(R.id.editTextPassword);
 
-        buttonLogIn.setOnClickListener(this);
+        //buttonLogIn.setOnClickListener(this);
         //buttonSignUp.setOnClickListener(this);
         // I dont think we can set more than 1 button on listener mode, so ...
 
@@ -31,6 +31,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //database log in 
+        //handles click events
     }
+
+
+
 }
