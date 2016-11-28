@@ -2,10 +2,11 @@ package com.jt328mth.yelpsimilar;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
     private Button buttonLogIn;
     private Button buttonSignUp;
     private EditText editTextUser;
@@ -26,5 +27,10 @@ public class MainActivity extends Activity {
         //buttonSignUp.setOnClickListener(this);
         // I dont think we can set more than 1 button on listener mode, so ...
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        //database log in 
     }
 }
