@@ -4,16 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private Button buttonLogIn;
     private Button buttonSignUp;
     private EditText editTextUser;
     private EditText editTextPassword;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private String TAG = "Firebase Test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,47 +40,83 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         buttonLogIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
-        // I dont think we can set more than 1 button on listener mode, so ...
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Toast.makeText(MainActivity.this, "User logged in: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // User is signed out
+                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Toast.makeText(MainActivity.this, "User Signed Out", Toast.LENGTH_SHORT).show();
+                }
+                // ...
+            }
+        };
     }
 
     @Override
-    public void onClick(View v)
-    {
-        //handles click events
-        switch  (v.getId())
-        {
-            //Login Event
-            case R.id.buttonLogIn:
-            {
-                //Login Validation check
-                if (editTextUser.getText().toString().equals("user") & editTextPassword.getText().toString().equals("1234"))
-                {
-                    //go to profile page for now
-                    Intent intent = new Intent(this, Profile.class);
-                    startActivity(intent);
-                }
-                else
-                {
-                    Toast.makeText(this, "Login Denied", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            }
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
-            //Sign-Up event
-            case R.id.buttonSignUp:
-            {
-                //go to sign_up page
-                Intent intent = new Intent(this, SignUp.class);
-                startActivity(intent);
-                break;
-            }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 
+
+    @Override
+    public void onClick(View view) {
+        String email = editTextUser.getText().toString();
+        String password = editTextPassword.getText().toString();
+
+        if (view == buttonSignUp) {
+            Intent intent = new Intent(MainActivity.this, SignUp.class);
+            startActivity(intent);
+        } else if (view == buttonLogIn) {
+            Toast.makeText(this, "logging in " + email, Toast.LENGTH_SHORT).show();
+            signIn(email, password);
         }
 
     }
 
+
+
+    public void signIn(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Login Successful - moving to update page", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(MainActivity.this, Profile.class);
+                            startActivity(intent);
+                        }
+
+                        // ...
+                    }
+                });
+    }
 
 
 }
