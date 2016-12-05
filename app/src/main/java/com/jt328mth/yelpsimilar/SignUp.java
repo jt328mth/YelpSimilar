@@ -12,7 +12,7 @@ public class SignUp extends Activity implements View.OnClickListener{
     private EditText editTextLast;
     private EditText editTextEmail;
     private EditText editTextPassword;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
