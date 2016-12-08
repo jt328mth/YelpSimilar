@@ -20,8 +20,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Enter Username"
+        android:inputType="textEmailAddress"
+        android:text="Enter Email"
         android:ems="10"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

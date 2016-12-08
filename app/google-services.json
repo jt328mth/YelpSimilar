@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "814064151820",
+    "firebase_url": "https://test-2fc0e.firebaseio.com",
+    "project_id": "test-2fc0e",
+    "storage_bucket": "test-2fc0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814064151820:android:3da0ea05de3e90db",
+        "android_client_info": {
+          "package_name": "com.jt328mth.yelpsimilar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814064151820-0dbarj62j61e4srdd4a1b9hgcdq88fc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jt328mth.yelpsimilar",
+            "certificate_hash": "8FEA2CF00C0E3971F94924A7E1CD942A3715B92F"
+          }
+        },
+        {
+          "client_id": "814064151820-rdlslob874q1f1j6jbh584vsfj176umm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4rIyEKWi0pgdriaT4hLMp6haE6XwaNXw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814064151820-rdlslob874q1f1j6jbh584vsfj176umm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "814064151820-vutp8lot6l591vdahl54d00s07j0n0dm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jt328mth.yelpsimilar"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
