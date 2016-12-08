@@ -3,6 +3,8 @@ package com.jt328mth.yelpsimilar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.util.Log;
 import android.widget.Button;
@@ -75,6 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
+
     @Override
     public void onClick(View view) {
         String email = editTextUser.getText().toString();
@@ -120,3 +123,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 }
+
+
