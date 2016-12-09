@@ -36,9 +36,7 @@ public class SignUp extends Activity implements View.OnClickListener{
         editTextEmail= (EditText) findViewById(R.id.editTextEmail);
         editTextPassword= (EditText) findViewById(R.id.editTextPassword);
 
-
         buttonSignUp.setOnClickListener(this);
-
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -92,15 +90,15 @@ public class SignUp extends Activity implements View.OnClickListener{
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseDatabase db = FirebaseDatabase.getInstance();
+                       // if (task.isSuccessful()) {
+                      //      FirebaseDatabase db = FirebaseDatabase.getInstance();
                             // Email Set
-                            DatabaseReference ref = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("email");
-                            ref.setValue(mAuth.getCurrentUser().getEmail());
+                       //     DatabaseReference ref = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("email");
+                       //     ref.setValue(mAuth.getCurrentUser().getEmail());
                             // Name Set
-                            DatabaseReference refname = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("name");
-                            refname.setValue(editTextName.getText().toString());
-                        }
+                       //     DatabaseReference refname = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("name");
+                       //     refname.setValue(editTextName.getText().toString());
+                       // }
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
