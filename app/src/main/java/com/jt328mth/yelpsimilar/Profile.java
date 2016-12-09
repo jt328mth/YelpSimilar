@@ -29,4 +29,6 @@ public class Profile extends Activity implements View.OnClickListener {
         //Event handler that handles the click event
         //needs database code
     }
+
+
 }
