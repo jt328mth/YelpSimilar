@@ -103,9 +103,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Login Successful - moving to update page", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Login Successful - moving to Clubs page", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(MainActivity.this, Profile.class);
+                            Intent intent = new Intent(MainActivity.this, ClubList.class);
                             startActivity(intent);
                         }
 

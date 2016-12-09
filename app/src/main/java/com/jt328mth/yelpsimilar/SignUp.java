@@ -1,8 +1,10 @@
 package com.jt328mth.yelpsimilar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static android.content.ContentValues.TAG;
 
 
 public class SignUp extends Activity implements View.OnClickListener{
@@ -81,31 +85,65 @@ public class SignUp extends Activity implements View.OnClickListener{
         if (v == buttonSignUp) {
             Toast.makeText(this, "registering: " + email + password, Toast.LENGTH_SHORT).show();
             createAccount(email, password);
+            signIn(email, password);
         }
 
+    }
+
+    public void signIn(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+
+                            Toast.makeText(SignUp.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignUp.this, "Login Successful - moving to Clubs page", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(SignUp.this, ClubList.class);
+                            startActivity(intent);
+                        }
+
+                    }
+                });
     }
 
     public void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                       // if (task.isSuccessful()) {
-                      //      FirebaseDatabase db = FirebaseDatabase.getInstance();
+                        if (task.isSuccessful()) {
+                            FirebaseDatabase db = FirebaseDatabase.getInstance();
                             // Email Set
-                       //     DatabaseReference ref = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("email");
-                       //     ref.setValue(mAuth.getCurrentUser().getEmail());
+                            DatabaseReference ref = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("email");
+                            ref.setValue(mAuth.getCurrentUser().getEmail());
                             // Name Set
-                       //     DatabaseReference refname = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("name");
-                       //     refname.setValue(editTextName.getText().toString());
-                       // }
+                            DatabaseReference refname = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("name");
+                            refname.setValue(editTextName.getText().toString());
+                        }
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            Log.w(TAG, "createUserWithEmailAndPassword:failed", task.getException());
+                            Log.w(TAG, " "+ task.getException().getMessage());
+                            Toast.makeText(SignUp.this,"auth error:"+task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            //showProgress(false);
+
                         }
                     }
                 });
     }
+
+
 
 
 }
