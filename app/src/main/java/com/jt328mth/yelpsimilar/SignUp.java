@@ -103,9 +103,9 @@ public class SignUp extends Activity implements View.OnClickListener{
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(SignUp.this, "Login Successful - moving to Clubs page", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, "Login Successful - moving to Profile page", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(SignUp.this, ClubList.class);
+                            Intent intent = new Intent(SignUp.this, Profile.class);
                             startActivity(intent);
                         }
 
