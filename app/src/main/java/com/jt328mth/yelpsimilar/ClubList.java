@@ -1,8 +1,11 @@
 package com.jt328mth.yelpsimilar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -98,6 +101,30 @@ public class ClubList extends Activity implements View.OnClickListener{
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_navigation,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuProfile) {
+            Intent gotoProfile = new Intent(ClubList.this, Profile.class);
+            ClubList.this.startActivity(gotoProfile);
+        } else if (item.getItemId() == R.id.menuClubList) {
+            Intent gotoClubList = new Intent(ClubList.this, ClubList.class);
+            ClubList.this.startActivity(gotoClubList);
+        } else if (item.getItemId() == R.id.menuSupport) {
+            Intent gotoSupport = new Intent(ClubList.this, Support.class);
+            ClubList.this.startActivity(gotoSupport);
+        } else if (item.getItemId() == R.id.menuLogout) {
+            Intent gotoMain = new Intent(ClubList.this, MainActivity.class);
+            ClubList.this.startActivity(gotoMain);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

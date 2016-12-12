@@ -1,8 +1,11 @@
 package com.jt328mth.yelpsimilar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +31,9 @@ public class Profile extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        buttonUpdate= (Button) findViewById(R.id.buttonUpdate);
+        buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
         editTextBirthday = (EditText) findViewById(R.id.editTextBirthday);
-        editTextGender= (EditText) findViewById(R.id.editTextGender);
+        editTextGender = (EditText) findViewById(R.id.editTextGender);
 
         buttonUpdate.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
@@ -90,5 +93,27 @@ public class Profile extends Activity implements View.OnClickListener {
         refgender.setValue(editTextGender.getText().toString());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_navigation, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuProfile) {
+            Intent gotoProfile = new Intent(Profile.this, Profile.class);
+            Profile.this.startActivity(gotoProfile);
+        } else if (item.getItemId() == R.id.menuClubList) {
+            Intent gotoClubList = new Intent(Profile.this, ClubList.class);
+            Profile.this.startActivity(gotoClubList);
+        } else if (item.getItemId() == R.id.menuSupport) {
+            Intent gotoSupport = new Intent(Profile.this, Support.class);
+            Profile.this.startActivity(gotoSupport);
+        } else if (item.getItemId() == R.id.menuLogout) {
+            Intent gotoMain = new Intent(Profile.this, MainActivity.class);
+            Profile.this.startActivity(gotoMain);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

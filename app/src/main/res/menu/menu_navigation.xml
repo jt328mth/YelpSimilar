@@ -2,7 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Profile"
-        android:id="@+id/menu_Profile" />
+        android:id="@+id/menuProfile" />
+    <item android:title="Club List"
+        android:id="@+id/menuClubList" />
+    <item android:title="Support"
+        android:id="@+id/menuSupport" />
     <item android:title="Logout"
-        android:id="@+id/menu_Logout" />
+        android:id="@+id/menuLogout" />
 </menu>
