@@ -11,7 +11,7 @@
     tools:context="com.jt328mth.yelpsimilar.SignUp">
 
     <TextView
-        android:text="Please Sign Up Below"
+        android:text="Sign Up Below"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -66,5 +66,14 @@
         android:layout_alignLeft="@+id/editTextPassword"
         android:layout_alignStart="@+id/editTextPassword"
         android:layout_marginTop="12dp" />
+
+    <ImageView
+        android:src="@drawable/whatsUPSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
