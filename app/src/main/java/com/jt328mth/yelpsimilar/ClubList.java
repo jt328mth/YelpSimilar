@@ -77,8 +77,9 @@ public class ClubList extends Activity implements View.OnClickListener{
 
                 Club club = dataSnapshot.getValue(Club.class);
                 String val = textViewClubList.getText().toString();
-                val = val + "\n \n Club: " + club.name + "\n Address: " + club.location + "\n"
-                        + "\n hours: " + club.hours;
+                val = val + "\n \n Club: " + club.name + "\n \n Type: " + club.type
+                        + "\n Address: " + club.location
+                        + "\n hours: " + club.hours + "\n";
                 textViewClubList.setText(val);
             }
 
