@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         } else {
                             Toast.makeText(MainActivity.this, "Login Successful - moving to Clubs page", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(MainActivity.this, ClubList.class);
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                             startActivity(intent);
                         }
 
