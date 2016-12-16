@@ -20,7 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
 
 public class ClubList extends Activity implements View.OnClickListener{
-    private TextView textViewClubs;
+    private TextView textViewClubList;
     private Button buttonUpdate;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -30,7 +30,7 @@ public class ClubList extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_list);
 
-        textViewClubs = (TextView) findViewById(R.id.textViewClubs);
+        textViewClubList = (TextView) findViewById(R.id.textViewClubList);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
 
         buttonUpdate.setOnClickListener(this);
@@ -76,9 +76,10 @@ public class ClubList extends Activity implements View.OnClickListener{
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Club club = dataSnapshot.getValue(Club.class);
-                String val = textViewClubs.getText().toString();
-                val = val + "\n \n Club: " + club.name + "\n Address: " + club.location + "\n";
-                textViewClubs.setText(val);
+                String val = textViewClubList.getText().toString();
+                val = val + "\n \n Club: " + club.name + "\n Address: " + club.location + "\n"
+                        + "\n hours: " + club.hours;
+                textViewClubList.setText(val);
             }
 
             @Override
