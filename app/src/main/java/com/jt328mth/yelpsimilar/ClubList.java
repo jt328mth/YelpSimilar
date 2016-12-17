@@ -20,7 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ChildEventListener;
 
 public class ClubList extends Activity implements View.OnClickListener{
-    private TextView textViewClubs;
+    private TextView textViewClubList;
     private Button buttonUpdate;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -30,7 +30,7 @@ public class ClubList extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_list);
 
-        textViewClubs = (TextView) findViewById(R.id.textViewClubs);
+        textViewClubList = (TextView) findViewById(R.id.textViewClubList);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
 
         buttonUpdate.setOnClickListener(this);
@@ -69,6 +69,7 @@ public class ClubList extends Activity implements View.OnClickListener{
     }
     @Override
     public void onClick(View v) {
+        Toast.makeText(ClubList.this, "clicked ", Toast.LENGTH_SHORT).show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dataClubs = database.getReference();
         dataClubs.child("Clubs").orderByKey().limitToLast(10).addChildEventListener(new ChildEventListener() {
@@ -76,9 +77,11 @@ public class ClubList extends Activity implements View.OnClickListener{
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Club club = dataSnapshot.getValue(Club.class);
-                String val = textViewClubs.getText().toString();
-                val = val + "\n \n Club: " + club.name + "\n Address: " + club.location + "\n";
-                textViewClubs.setText(val);
+                String val = textViewClubList.getText().toString();
+                val = val + "\n Club: " + club.name
+                        + "\n Address: " + club.location
+                        + "\n hours: " + club.hours + "\n";
+                textViewClubList.setText(val);
             }
 
             @Override
@@ -121,6 +124,7 @@ public class ClubList extends Activity implements View.OnClickListener{
             Intent gotoSupport = new Intent(ClubList.this, Support.class);
             ClubList.this.startActivity(gotoSupport);
         } else if (item.getItemId() == R.id.menuLogout) {
+            mAuth.signOut();
             Intent gotoMain = new Intent(ClubList.this, MainActivity.class);
             ClubList.this.startActivity(gotoMain);
         }

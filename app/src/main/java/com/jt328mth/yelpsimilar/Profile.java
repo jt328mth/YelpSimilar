@@ -16,8 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends Activity implements View.OnClickListener {
     private Button buttonUpdate;
@@ -50,9 +54,27 @@ public class Profile extends Activity implements View.OnClickListener {
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
                     Toast.makeText(Profile.this, "User Signed Out", Toast.LENGTH_SHORT).show();
                 }
-                // ...
+
             }
         };
+
+        //populate current gender and birthday
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbref = db.getReference("users").child(mAuth.getCurrentUser().getUid());
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try{editTextGender.setText(dataSnapshot.child("gender").getValue().toString());
+                    editTextBirthday.setText("" + dataSnapshot.child("birthday").getValue().toString());}
+                catch(Exception ex){}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -76,12 +98,17 @@ public class Profile extends Activity implements View.OnClickListener {
         String gender = editTextGender.getText().toString();
 
         if (v == buttonUpdate) {
+
             Toast.makeText(this, "updating ", Toast.LENGTH_SHORT).show();
             updateAccount(birthday, gender);
         }
     }
 
     public void updateAccount(String email, String password) {
+        // Write  to the database
+        String birthday = editTextBirthday.getText().toString();
+        String gender = editTextGender.getText().toString();
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
         //set birthday
@@ -91,6 +118,8 @@ public class Profile extends Activity implements View.OnClickListener {
         //set gender
         DatabaseReference refgender = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("gender");
         refgender.setValue(editTextGender.getText().toString());
+
+        Toast.makeText(this, "updated ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -111,6 +140,7 @@ public class Profile extends Activity implements View.OnClickListener {
             Intent gotoSupport = new Intent(Profile.this, Support.class);
             Profile.this.startActivity(gotoSupport);
         } else if (item.getItemId() == R.id.menuLogout) {
+            mAuth.signOut();
             Intent gotoMain = new Intent(Profile.this, MainActivity.class);
             Profile.this.startActivity(gotoMain);
         }
