@@ -118,6 +118,8 @@ public class Profile extends Activity implements View.OnClickListener {
         //set gender
         DatabaseReference refgender = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("gender");
         refgender.setValue(editTextGender.getText().toString());
+
+        Toast.makeText(this, "updated ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
