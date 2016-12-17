@@ -6,6 +6,10 @@
         android:id="@+id/menuProfile" />
     <item android:title="Club List"
         android:id="@+id/menuClubList" />
+    <item android:title="Map"
+        android:id="@+id/menuMap" />
+    <item android:title="Add Club"
+        android:id="@+id/menuAddClub" />
     <item android:title="Support"
         android:id="@+id/menuSupport" />
     <item android:title="Logout"

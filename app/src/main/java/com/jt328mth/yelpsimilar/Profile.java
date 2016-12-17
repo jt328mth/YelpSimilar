@@ -143,6 +143,12 @@ public class Profile extends Activity implements View.OnClickListener {
             mAuth.signOut();
             Intent gotoMain = new Intent(Profile.this, MainActivity.class);
             Profile.this.startActivity(gotoMain);
+        } else if (item.getItemId() == R.id.menuMap) {
+            Intent intent = new Intent(Profile.this, MapsActivity.class);
+            Profile.this.startActivity(intent);
+        } else if (item.getItemId() == R.id.menuAddClub) {
+            Intent intent2 = new Intent(Profile.this, AddClub.class);
+            Profile.this.startActivity(intent2);
         }
         return super.onOptionsItemSelected(item);
     }

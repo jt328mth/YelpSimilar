@@ -59,6 +59,12 @@ public class Support extends Activity {
             mAuth.signOut();
             Intent gotoMain = new Intent(Support.this, MainActivity.class);
             Support.this.startActivity(gotoMain);
+        } else if (item.getItemId() == R.id.menuMap) {
+            Intent intent = new Intent(Support.this, MapsActivity.class);
+            Support.this.startActivity(intent);
+        } else if (item.getItemId() == R.id.menuAddClub) {
+            Intent intent2 = new Intent(Support.this, AddClub.class);
+            Support.this.startActivity(intent2);
         }
         return super.onOptionsItemSelected(item);
     }

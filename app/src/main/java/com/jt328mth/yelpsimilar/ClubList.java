@@ -72,7 +72,7 @@ public class ClubList extends Activity implements View.OnClickListener{
         Toast.makeText(ClubList.this, "clicked ", Toast.LENGTH_SHORT).show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dataClubs = database.getReference();
-        dataClubs.child("Clubs").orderByKey().limitToLast(10).addChildEventListener(new ChildEventListener() {
+        dataClubs.child("Clubs").orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -127,7 +127,14 @@ public class ClubList extends Activity implements View.OnClickListener{
             mAuth.signOut();
             Intent gotoMain = new Intent(ClubList.this, MainActivity.class);
             ClubList.this.startActivity(gotoMain);
+        } else if (item.getItemId() == R.id.menuMap) {
+            Intent intent = new Intent(ClubList.this, MapsActivity.class);
+            ClubList.this.startActivity(intent);
+        } else if (item.getItemId() == R.id.menuAddClub) {
+            Intent intent2 = new Intent(ClubList.this, AddClub.class);
+            ClubList.this.startActivity(intent2);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
