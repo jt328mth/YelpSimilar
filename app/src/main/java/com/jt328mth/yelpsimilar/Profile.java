@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,9 +53,18 @@ public class Profile extends Activity implements View.OnClickListener {
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
                     Toast.makeText(Profile.this, "User Signed Out", Toast.LENGTH_SHORT).show();
                 }
-                // ...
+
             }
         };
+
+       // FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+        //get birthday
+        //DatabaseReference refbirthday = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("birthday");
+        //DataSnapshot bday = DataSnapshot.getKey();
+        //refbirthday.setValue(editTextBirthday.getText().toString());
+        //editTextBirthday.setText(""+bday);
+
 
     }
 
@@ -76,12 +88,25 @@ public class Profile extends Activity implements View.OnClickListener {
         String gender = editTextGender.getText().toString();
 
         if (v == buttonUpdate) {
+
             Toast.makeText(this, "updating ", Toast.LENGTH_SHORT).show();
             updateAccount(birthday, gender);
         }
     }
 
     public void updateAccount(String email, String password) {
+        // Write  to the database
+        String birthday = editTextBirthday.getText().toString();
+        String gender = editTextGender.getText().toString();
+
+
+        //You profile = new You(gender, birthday);
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+       // DatabaseReference data = database.getReference(editTextZipcode.getText().toString());
+       // DatabaseReference dataNew = data.push();
+       // dataNew.setValue(profile);
+
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
         //set birthday

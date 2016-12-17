@@ -92,7 +92,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
-
     public void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -106,7 +105,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Login Successful - moving to Clubs page", Toast.LENGTH_SHORT).show();
 
                             //temp change to add clubs
                             Intent intent = new Intent(MainActivity.this, ClubList.class);
@@ -119,7 +117,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 }
-
-//Test
 
 
