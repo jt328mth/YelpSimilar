@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends Activity implements View.OnClickListener {
     private Button buttonUpdate;
@@ -57,14 +58,23 @@ public class Profile extends Activity implements View.OnClickListener {
             }
         };
 
-       // FirebaseDatabase db = FirebaseDatabase.getInstance();
+        //populate current gender and birthday
 
-        //get birthday
-        //DatabaseReference refbirthday = db.getReference("users").child(mAuth.getCurrentUser().getUid()).child("birthday");
-        //DataSnapshot bday = DataSnapshot.getKey();
-        //refbirthday.setValue(editTextBirthday.getText().toString());
-        //editTextBirthday.setText(""+bday);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbref = db.getReference("users").child(mAuth.getCurrentUser().getUid());
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try{editTextGender.setText(dataSnapshot.child("gender").getValue().toString());
+                    editTextBirthday.setText("" + dataSnapshot.child("birthday").getValue().toString());}
+                catch(Exception ex){}
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -99,14 +109,6 @@ public class Profile extends Activity implements View.OnClickListener {
         String birthday = editTextBirthday.getText().toString();
         String gender = editTextGender.getText().toString();
 
-
-        //You profile = new You(gender, birthday);
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-       // DatabaseReference data = database.getReference(editTextZipcode.getText().toString());
-       // DatabaseReference dataNew = data.push();
-       // dataNew.setValue(profile);
-
-
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
         //set birthday
@@ -136,6 +138,7 @@ public class Profile extends Activity implements View.OnClickListener {
             Intent gotoSupport = new Intent(Profile.this, Support.class);
             Profile.this.startActivity(gotoSupport);
         } else if (item.getItemId() == R.id.menuLogout) {
+            mAuth.signOut();
             Intent gotoMain = new Intent(Profile.this, MainActivity.class);
             Profile.this.startActivity(gotoMain);
         }

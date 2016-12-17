@@ -124,6 +124,7 @@ public class ClubList extends Activity implements View.OnClickListener{
             Intent gotoSupport = new Intent(ClubList.this, Support.class);
             ClubList.this.startActivity(gotoSupport);
         } else if (item.getItemId() == R.id.menuLogout) {
+            mAuth.signOut();
             Intent gotoMain = new Intent(ClubList.this, MainActivity.class);
             ClubList.this.startActivity(gotoMain);
         }
