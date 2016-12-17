@@ -69,6 +69,7 @@ public class ClubList extends Activity implements View.OnClickListener{
     }
     @Override
     public void onClick(View v) {
+        Toast.makeText(ClubList.this, "clicked ", Toast.LENGTH_SHORT).show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dataClubs = database.getReference();
         dataClubs.child("Clubs").orderByKey().limitToLast(10).addChildEventListener(new ChildEventListener() {
@@ -77,7 +78,7 @@ public class ClubList extends Activity implements View.OnClickListener{
 
                 Club club = dataSnapshot.getValue(Club.class);
                 String val = textViewClubList.getText().toString();
-                val = val + "\n \n Club: " + club.name + "\n \n Type: " + club.type
+                val = val + "\n Club: " + club.name
                         + "\n Address: " + club.location
                         + "\n hours: " + club.hours + "\n";
                 textViewClubList.setText(val);

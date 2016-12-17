@@ -20,5 +20,6 @@ public class Club {
         this.location = location;
         this.phone = phone;
         this.hours = hours;
+        this.type= type;
     }
 }

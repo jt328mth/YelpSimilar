@@ -8,27 +8,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jt328mth.yelpsimilar.ClubList">
-
-    <TextView
-        android:text="List of Clubs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
-        android:id="@+id/textViewClubs"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textAlignment="center"
-        android:textSize="24sp" />
+    tools:context="com.jt328mth.yelpsimilar.ClubList"
+    android:background="@color/common_google_signin_btn_text_dark_default">
 
     <Button
-        android:text="Update"
-        android:layout_width="wrap_content"
+        android:text="Show what's in Ann Arbor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/buttonUpdate" />
+        android:id="@+id/buttonUpdate"
+        android:backgroundTint="@color/colorAccent"
+        android:background="@color/colorAccent"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold" />
 
     <ImageView
         android:src="@drawable/whatsupsmall"
@@ -44,7 +36,12 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/imageView5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/buttonUpdate"
+        android:scrollbarStyle="insideInset"
+        android:fillViewport="false"
+        android:backgroundTint="@color/common_google_signin_btn_text_light_disabled"
+        android:background="@color/common_google_signin_btn_text_light_disabled">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +51,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/textViewClubList" />
+                android:id="@+id/textViewClubList"
+                android:backgroundTint="@color/colorAccent" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:text="List of Clubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewClubs"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fontFamily="sans-serif" />
 </RelativeLayout>
