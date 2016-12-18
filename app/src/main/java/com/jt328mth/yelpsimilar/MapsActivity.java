@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,11 +33,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static com.jt328mth.yelpsimilar.R.id.add;
 import static com.jt328mth.yelpsimilar.R.id.textViewClubList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Toast.makeText(MapsActivity.this, "User logged in: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // User is signed out
+                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Toast.makeText(MapsActivity.this, "User Signed Out", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        };
 
     }
 
@@ -58,8 +82,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng michigan = new LatLng(44.3148, -85.6024);
-        mMap.addMarker(new MarkerOptions().position(michigan).title("Michigan"));
+        LatLng annarbor = new LatLng(42.2808, -83.7430);
+        mMap.addMarker(new MarkerOptions().position(annarbor).title("Ann Arbor"));
+        addClubMarkers();
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -71,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(michigan));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(annarbor));
     }
 
     public void onSearch( View view) {
@@ -236,6 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent gotoSupport = new Intent(MapsActivity.this, Support.class);
             MapsActivity.this.startActivity(gotoSupport);
         } else if (item.getItemId() == R.id.menuLogout) {
+            mAuth.signOut();
             Intent gotoMain = new Intent(MapsActivity.this, MainActivity.class);
             MapsActivity.this.startActivity(gotoMain);
         }
