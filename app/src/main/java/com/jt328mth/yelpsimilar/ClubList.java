@@ -42,34 +42,15 @@ public class ClubList extends Activity implements View.OnClickListener{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Toast.makeText(ClubList.this, "User logged in: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+
                 } else {
                     // User is signed out
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
                     Toast.makeText(ClubList.this, "User Signed Out", Toast.LENGTH_SHORT).show();
                 }
-                // ...
             }
         };
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(ClubList.this, "clicked ", Toast.LENGTH_SHORT).show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dataClubs = database.getReference();
         dataClubs.child("Clubs").orderByKey().addChildEventListener(new ChildEventListener() {
@@ -104,6 +85,59 @@ public class ClubList extends Activity implements View.OnClickListener{
 
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(ClubList.this, "updating ", Toast.LENGTH_SHORT).show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dataClubs = database.getReference();
+        dataClubs.child("Clubs").orderByKey().addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Club club = dataSnapshot.getValue(Club.class);
+                String val = textViewClubList.getText().toString();
+                val = val + "\n Club: " + club.name
+                        + "\n Address: " + club.location
+                        + "\n hours: " + club.hours + "\n";
+                textViewClubList.setText(val);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Toast.makeText(ClubList.this, "updated ", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -12,7 +12,7 @@
     android:background="@color/common_google_signin_btn_text_dark_default">
 
     <Button
-        android:text="Show what's in Ann Arbor"
+        android:text="Update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -57,7 +57,7 @@
     </ScrollView>
 
     <TextView
-        android:text="List of Clubs"
+        android:text="List of Clubs in Ann Arbor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewClubs"
