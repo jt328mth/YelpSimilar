@@ -47,11 +47,9 @@ public class AddClub extends Activity implements View.OnClickListener {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(AddClub.this, "User logged in: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
                     Toast.makeText(AddClub.this, "User Signed Out", Toast.LENGTH_SHORT).show();
                 }
 
@@ -74,6 +72,7 @@ public class AddClub extends Activity implements View.OnClickListener {
         DatabaseReference ref = db.getReference("Clubs");
         DatabaseReference ref2 = ref.push();
         ref2.setValue(club);
+        Toast.makeText(this, "updated ", Toast.LENGTH_SHORT).show();
 
     }
 
