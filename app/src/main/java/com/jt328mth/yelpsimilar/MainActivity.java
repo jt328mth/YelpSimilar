@@ -106,7 +106,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                     Toast.LENGTH_SHORT).show();
                         } else {
 
-                            Intent intent = new Intent(MainActivity.this, ClubList.class);
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                             startActivity(intent);
                         }
 
