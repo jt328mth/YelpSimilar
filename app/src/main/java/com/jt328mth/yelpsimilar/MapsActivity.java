@@ -152,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position( new LatLng(42.2839674,-83.7494898))
                 .title("The Bar At 327 Braun Court").icon(BitmapDescriptorFactory.defaultMarker(0)));
 
-        mMap.addMarker(new MarkerOptions().position( new LatLng(42.3087262,-83.8890772))
+        mMap.addMarker(new MarkerOptions().position( new LatLng(42.2795,-83.7497))
                 .title("The Beer Grotto").icon(BitmapDescriptorFactory.defaultMarker(0)));
 
         mMap.addMarker(new MarkerOptions().position( new LatLng(42.2791129,-83.7440348))
@@ -176,7 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position( new LatLng(42.279797,-83.7515028))
                 .title("Alley Bar").icon(BitmapDescriptorFactory.defaultMarker(90)));
 
-        mMap.addMarker(new MarkerOptions().position( new LatLng(41.658616,-91.5351737))
+        mMap.addMarker(new MarkerOptions().position( new LatLng(42.2409,-83.7359))
                 .title("Share Wine Lounge and Small Plate Bistro").icon(BitmapDescriptorFactory.defaultMarker(0)));
 
         mMap.addMarker(new MarkerOptions().position( new LatLng(42.273149,-83.7408949))
